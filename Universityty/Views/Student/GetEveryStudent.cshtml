@@ -1,0 +1,36 @@
+﻿@model Universityty.Models.Normal
+
+
+<!---> This is actually the add student view html code</!--->
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>Add Student</h4>
+        <div>
+            @Html.ActionLink("Back to Student List", "GetEveryStudent")
+
+        </div>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fName)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fName)
+                </div>
+
+            @Html.LabelFor(model => model.lName)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lName)
+            </div>
+
+            @Html.LabelFor(model => model.Email)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+            </div>
+
+        </div>
+    </div>
+
+}
+

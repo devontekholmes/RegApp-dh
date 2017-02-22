@@ -1,0 +1,19 @@
+﻿@model Universityty.Models.Normal
+
+@{
+    ViewBag.Title = "Welcome To Devontaria State University!";
+}
+
+<div>
+    <h2 class="container-fluid bg-4 text-center"> Welcome To Devontaria State University!</h2>
+    @Html.ValidationSummary()
+    <center><div><img src="~/Content/Universityty.jpg" class="img-circle" alt="U" /></div></center>
+    @using (Html.BeginForm())
+    { 
+        <label>Email:</label> @Html.EditorFor(x => x.Email) 
+        <label>Password:</label> @Html.PasswordFor(x => x.Pword)
+        <input type="submit" value = "Login" /> 
+    }
+    
+</div>
+
