@@ -14,7 +14,7 @@ namespace Universityty.Models
         {
         }
 
-        public Normal(int studentId, string FName, string LName, string email, string pword, List<ICourse> schedule)
+        public Normal(int studentId, string FName, string LName, string email, string pword, List<Course> schedule)
         {
             StudentId = studentId;
             fName = FName;

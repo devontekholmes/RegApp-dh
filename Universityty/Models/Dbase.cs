@@ -286,17 +286,20 @@ namespace Universityty.Models
                 SqlParameter match = new SqlParameter();
                 match.Direction = ParameterDirection.ReturnValue;
                 cmd.Parameters.Add(match);
-                DataTable d = new DataTable();
 
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        //Where i Left off
-                        //foreach (DataRow row in DataTable)
-                        //roster.Add((Course)reader.GetValues())
+                        Course co = new Course();
+                        co.CourseId = (int)reader.GetValue(0);
+                        co.Name = (string)reader.GetValue(1);
+                        co.startTime = (DateTime)reader.GetValue(2);
+                        co.creditHour = (DateTime)reader.GetValue(3);
+                        co.CourseId = (int)reader.GetValue(5);
 
+                        roster.Add(co);
                     }
                     sqlcon.Close();
                 }
@@ -304,7 +307,7 @@ namespace Universityty.Models
                 {
 
                 }
-                return ;
+                return roster;
             }
         }
 

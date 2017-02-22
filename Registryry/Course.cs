@@ -14,11 +14,12 @@ namespace Registryry
         /// field values for Courses
         /// 
         /// </summary>
+        public int CourseId;
         public string name;
         private List<Student> studentRoster = new List<Student>();
-        private string major;
-        private DateTime timeOfDay;
-        private int creditHour;
+        
+        public DateTime startTime;
+        public DateTime creditHour;
         public delegate bool CloseRegistration(Course thisCourseToClose);
 
         public CloseRegistration closeReg = null;
@@ -33,12 +34,11 @@ namespace Registryry
 
         }
 
-        public Course(string name, DateTime timeOfDay, int creditHour = 1, string major = "elective")
+        public Course(string name, DateTime timeOfDay, DateTime creditHour)
         {
             this.name = name;
             this.creditHour = creditHour;
-            this.timeOfDay = timeOfDay;
-            this.major = major;
+            this.startTime = timeOfDay;
         }
 
         public bool isFull

@@ -8,6 +8,7 @@ namespace Registryry
 {
     public interface ICourse
     {
+        
         int rosterCount { get; }
         bool addStudent(Student student);
         bool AddStudents(List<Student> roster);

@@ -11,14 +11,14 @@ namespace Universityty.Controllers
 {
     public class HomeController : Controller
     {
-        
+
         static Dbase ado = Dbase.instance;
 
 
         [HttpGet]
         public ViewResult Index()
         {
-           
+
             return View();
         }
 
@@ -34,21 +34,26 @@ namespace Universityty.Controllers
             string p = m.Pword;
             TempData["tempstudent"] = m;
             m = ado.MatchStudentLogin(m.Email, m.Pword);
-            if (m.Email == e && m.Pword == p )
+            if (m.Email == e && m.Pword == p)
             {
                 return RedirectToAction("ShowStudentSchedule", "Home");
             }
             else
                 return View();
-            
+
         }
 
-        
+
         public ViewResult ShowStudentSchedule(Normal n)
-        { 
+        {
             //use a method to iterate through all the student's current courses taken
 
             return View(TempData["tempstudent"]);
+        }
+
+        public PartialViewResult ShowStudentSchedule()
+        {
+            return PartialViewResult()
         }
     }
 }

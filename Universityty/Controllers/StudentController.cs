@@ -15,14 +15,6 @@ namespace Universityty.Controllers
             return View();
         }
 
-       /* public ActionResult GetEveryStudent()
-        {
-            var data = Dbase.instance;
-            ModelState.Clear();
-            return View(data.GetAllStudents());
-        }
-        */
-
         public ActionResult AddStudent()
         {
             return View();
