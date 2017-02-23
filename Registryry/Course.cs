@@ -11,16 +11,18 @@ namespace Registryry
     public class Course
     {
 
+       
+
         /// <summary>
         /// field values for Courses
         /// 
         /// </summary>
-        public int CourseId;
-        public string name;
+        public int CourseId { get; set; }
+        public string name { get; set; }
         private List<Student> studentRoster = new List<Student>();
         
-        public TimeSpan startTime;
-        public TimeSpan creditHour;
+        public TimeSpan startTime { get; set; }
+        public TimeSpan creditHour { get; set; }
         public delegate bool CloseRegistration(Course thisCourseToClose);
 
         public CloseRegistration closeReg = null;

@@ -4,22 +4,38 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Universityty.Models;
+using Registryry;
 
 namespace Universityty.Controllers
 {
     public class StudentController : Controller
     {
-        
+        static Dbase ado = Dbase.instance;
+
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult AddCourse()
+        {
+            return View(Dbase.GetAllCourses());
+        }
+
         public ActionResult AddStudent()
         {
-            return View();
+            List<Course> n = new List<Course>();
+            n = Dbase.currentStudents.Schedule;
+           return View();
         }
         
+        public ActionResult DropCourse()
+        {
+            
+             
+            return View();
+        }
+
         [HttpPost] 
         public ActionResult AddStudent(Normal D) 
         {

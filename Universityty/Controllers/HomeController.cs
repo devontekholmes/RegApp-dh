@@ -40,7 +40,6 @@ namespace Universityty.Controllers
             }
             else
                 return View();
-
         }
         //@model iEnumerable<University.Models.Course>
         public ViewResult ShowStudentSchedule(Normal n)
@@ -53,7 +52,7 @@ namespace Universityty.Controllers
         public ActionResult PartialSchedule()
         {
             List<Course> m = new List<Course>();
-            m = ado.getStudentCourses(ado.currentStudents);
+            m = ado.getStudentCourses(Dbase.currentStudents);
             return PartialView("PartialSchedule", m);
         }
     }

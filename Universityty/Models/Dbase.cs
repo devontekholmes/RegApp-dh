@@ -11,12 +11,15 @@ namespace Universityty.Models
 {
     public sealed class Dbase
     {
+        public static Normal currentStudents = new Normal();
+        public static Course currentCourse = new Course();
+
         /// <summary>
         /// Temporary variable to store connection string
         /// utilizes the get connection string method
         /// </summary>
-        public Normal currentStudents = new Normal();
         public static string conn = GetConnectionString();
+        
         
         /// <summary>
         /// Private Constructor
@@ -127,6 +130,36 @@ namespace Universityty.Models
             Console.WriteLine("state: {0}", sqlcon.State);
         }
 
+
+        public static List<Course> GetAllCourses(){
+            using (SqlConnection sqlcon = new SqlConnection(conn))
+            {
+                List<Course> AllCourses = new List<Course>();
+                SqlCommand cmd = new SqlCommand("AllCourses", sqlcon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                sqlcon.Open();
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Course aco = new Course();
+                        aco.CourseId = (int)reader.GetValue(0);
+                        aco.Name = (string)reader.GetValue(1);
+                        aco.startTime = (TimeSpan)reader.GetTimeSpan(2);
+                        aco.creditHour = (TimeSpan)reader.GetTimeSpan(3);
+                        AllCourses.Add(aco);
+                    }
+                    sqlcon.Close();
+                }
+                catch(Exception ex)
+                {
+
+                }
+                return AllCourses;
+            }
+        }
+            
 
         /// <summary>
         /// A method to add a new student to the database 
@@ -319,24 +352,35 @@ namespace Universityty.Models
             }
         }
 
-        public int AddCourses (Normal n)
+        public Course AddCourses (Normal n, Course c)
         {
             using (SqlConnection sqlcon = new SqlConnection(conn))
             {
-                sqlcon.ConnectionString = conn;
-                
-                
                 SqlCommand cmd = new SqlCommand("AddCourse", sqlcon);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@StudentId", n.StudentId);
-                cmd.Parameters.AddWithValue("@Email", n.Email);
-                int affected = cmd.ExecuteNonQuery();
-                if(affected == 1)
+                cmd.Parameters.AddWithValue("@CourseId", c.CourseId);
+                sqlcon.Open();
+                try
                 {
-                    n.Schedule.Add()
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected >= 1)
+                    {
+                        foreach (Course courseAdded in (GetAllCourses()))
+                        {
+                            if (c.CourseId == courseAdded.CourseId)
+                            {
+                                n.Schedule.Add(courseAdded);
+                                currentCourse = courseAdded;
+                            }
+                        }
+                    }
                 }
+                catch (Exception ex)
+                {
 
-                return affected;
+                }
+                return currentCourse;
             }
         }
 
