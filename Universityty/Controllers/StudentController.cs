@@ -22,6 +22,15 @@ namespace Universityty.Controllers
             return View(Dbase.GetAllCourses());
         }
 
+        [HttpPost]
+        public ActionResult AddCourse(Course c)
+        {
+            Course addedCourse = new Course();
+            addedCourse = Dbase.GetCourseInfo(c.CourseId);
+            return PartialView(Dbase.AddCourses(, c));
+        }
+        
+
         public ActionResult AddStudent()
         {
             List<Course> n = new List<Course>();
@@ -31,8 +40,6 @@ namespace Universityty.Controllers
         
         public ActionResult DropCourse()
         {
-            
-             
             return View();
         }
 

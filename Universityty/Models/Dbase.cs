@@ -19,8 +19,8 @@ namespace Universityty.Models
         /// utilizes the get connection string method
         /// </summary>
         public static string conn = GetConnectionString();
-        
-        
+
+
         /// <summary>
         /// Private Constructor
         /// </summary>
@@ -93,7 +93,7 @@ namespace Universityty.Models
             }
             catch (Exception ex)
             {
-                
+
             }
 
             //If changes were made to the database or not
@@ -109,7 +109,7 @@ namespace Universityty.Models
             }
         }
 
-        
+
         /// <summary>
         /// Temporary placeholder method to hold the connection string and fetch it for access
         /// </summary>
@@ -130,6 +130,34 @@ namespace Universityty.Models
             Console.WriteLine("state: {0}", sqlcon.State);
         }
 
+        public static Course GetCourseInfo(int Cid)
+        {
+            Course aco = new Course();
+            using (SqlConnection sqlcon = new SqlConnection(conn))
+            {
+                SqlCommand cmd = new SqlCommand("GetSpecificCourse", sqlcon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CourseId", Cid);
+                sqlcon.Open();
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        aco.CourseId = (int)reader.GetValue(0);
+                        aco.Name = (string)reader.GetValue(1);
+                        aco.startTime = (TimeSpan)reader.GetTimeSpan(2);
+                        aco.creditHour = (TimeSpan)reader.GetTimeSpan(3);
+                    }
+                    sqlcon.Close();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return aco;
+            }
+        }
 
         public static List<Course> GetAllCourses(){
             using (SqlConnection sqlcon = new SqlConnection(conn))

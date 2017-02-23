@@ -10,9 +10,7 @@ namespace Registryry
 {
     public class Course
     {
-
        
-
         /// <summary>
         /// field values for Courses
         /// 

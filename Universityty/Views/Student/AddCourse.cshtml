@@ -29,7 +29,7 @@
                     <td>@Html.DisplayFor(x => item.Name)</td>
                     <td>@Html.DisplayFor(x => item.startTime.Hours)</td>
                     <td>@Html.DisplayFor(x => item.creditHour.Hours)</td>
-                    <td>@Html.RadioButton("Add Class", "Added")</td>
+                    <td>@Html.RadioButton("Add Class", item.CourseId)</td>
                 </tr>
                 }
         </tbody>
