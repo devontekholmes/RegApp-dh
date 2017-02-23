@@ -181,6 +181,7 @@
     </Content>
     <Content Include="Views\Student\GetEveryStudent.cshtml" />
     <Content Include="Views\Home\ShowStudentSchedule.cshtml" />
+    <Content Include="Views\Home\PartialSchedule.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

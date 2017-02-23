@@ -4,6 +4,12 @@
     ViewBag.Title = "ShowStudentSchedule";
 }
 
-<h2>ShowStudentSchedule</h2>
-<h3>@Model.Pword</h3>
-<h4>@Model.Email</h4>
+<h2>Schedule</h2>
+
+<h3> Schedule for Username: @Html.DisplayFor(x => x.Email)</h3>
+<p>Welcome Back, </p> <div> @Html.DisplayFor(x => x.fName) @Html.DisplayFor(x => x.lName) </div>
+
+<br/>
+<div> 
+    @Html.Action("PartialSchedule")
+</div>

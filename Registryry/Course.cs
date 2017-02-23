@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -18,8 +19,8 @@ namespace Registryry
         public string name;
         private List<Student> studentRoster = new List<Student>();
         
-        public DateTime startTime;
-        public DateTime creditHour;
+        public TimeSpan startTime;
+        public TimeSpan creditHour;
         public delegate bool CloseRegistration(Course thisCourseToClose);
 
         public CloseRegistration closeReg = null;
@@ -34,7 +35,7 @@ namespace Registryry
 
         }
 
-        public Course(string name, DateTime timeOfDay, DateTime creditHour)
+        public Course(string name, TimeSpan timeOfDay, TimeSpan creditHour)
         {
             this.name = name;
             this.creditHour = creditHour;
@@ -66,7 +67,7 @@ namespace Registryry
             }
             set
             {
-                //name = value;
+                name = value;
             }
         }
 

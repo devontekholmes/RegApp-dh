@@ -1,0 +1,36 @@
+﻿@model IEnumerable <Registryry.Course>
+@using Registryry
+
+<div class="container">
+   <table class="table">
+      <thead>
+         <tr>
+                 <th>Course ID </th>
+                 <th>Course Name </th>
+                 <th>Start Time </th>
+                 <th>Credit Hours</th>
+            </tr>
+            </thead>
+            <tbody>
+    @foreach (Course item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(x => item.CourseId)</td>
+            <td>@Html.DisplayFor(x => item.Name)</td>
+            <td>@Html.DisplayFor(x => item.startTime.Hours)</td>
+            <td>@Html.DisplayFor(x => item.creditHour.Hours)</td>
+        </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+
+
+
+
+
+
+
+
+
+

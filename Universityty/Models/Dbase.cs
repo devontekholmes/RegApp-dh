@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using Registryry;
+using System.Data.SqlTypes;
 
 namespace Universityty.Models
 {
@@ -14,6 +15,7 @@ namespace Universityty.Models
         /// Temporary variable to store connection string
         /// utilizes the get connection string method
         /// </summary>
+        public Normal currentStudents = new Normal();
         public static string conn = GetConnectionString();
         
         /// <summary>
@@ -219,7 +221,7 @@ namespace Universityty.Models
         {
             using (SqlConnection sqlcon = new SqlConnection(conn))
             {
-                SqlCommand cmd = new SqlCommand("DeletStudentById", sqlcon);
+                SqlCommand cmd = new SqlCommand("DeleteStudentById", sqlcon);
 
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@StudentId", Sid);
@@ -255,11 +257,16 @@ namespace Universityty.Models
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                            matchedStudent.StudentId = (int)reader.GetValue(0);
-                            matchedStudent.fName = (string)reader.GetValue(1);
-                            matchedStudent.lName = (string)reader.GetValue(2);
-                            matchedStudent.Email = (string)reader.GetValue(3);
-                            matchedStudent.Pword = (string)reader.GetValue(4);
+                        matchedStudent.StudentId = (int)reader.GetValue(0);
+                        currentStudents.StudentId = matchedStudent.StudentId;
+                        matchedStudent.fName = (string)reader.GetValue(1);
+                        currentStudents.fName = matchedStudent.fName;
+                        matchedStudent.lName = (string)reader.GetValue(2);
+                        currentStudents.lName = matchedStudent.lName;
+                        matchedStudent.Email = (string)reader.GetValue(3);
+                        currentStudents.Email = matchedStudent.Email; 
+                        matchedStudent.Pword = (string)reader.GetValue(4);
+                        currentStudents.Pword = matchedStudent.Pword;
 
                     }
                  sqlcon.Close();
@@ -295,10 +302,11 @@ namespace Universityty.Models
                         Course co = new Course();
                         co.CourseId = (int)reader.GetValue(0);
                         co.Name = (string)reader.GetValue(1);
-                        co.startTime = (DateTime)reader.GetValue(2);
-                        co.creditHour = (DateTime)reader.GetValue(3);
-                        co.CourseId = (int)reader.GetValue(5);
 
+                        co.startTime = (TimeSpan)reader.GetTimeSpan(2);
+                        co.creditHour= (TimeSpan)reader.GetTimeSpan(3);
+                      
+                        co.CourseId = (int)reader.GetValue(5);
                         roster.Add(co);
                     }
                     sqlcon.Close();
@@ -311,7 +319,28 @@ namespace Universityty.Models
             }
         }
 
+        public int AddCourses (Normal n)
+        {
+            using (SqlConnection sqlcon = new SqlConnection(conn))
+            {
+                sqlcon.ConnectionString = conn;
+                
+                
+                SqlCommand cmd = new SqlCommand("AddCourse", sqlcon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@StudentId", n.StudentId);
+                cmd.Parameters.AddWithValue("@Email", n.Email);
+                int affected = cmd.ExecuteNonQuery();
+                if(affected == 1)
+                {
+                    n.Schedule.Add()
+                }
+
+                return affected;
+            }
         }
+
+    }
 
    
     }

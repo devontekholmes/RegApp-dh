@@ -42,18 +42,19 @@ namespace Universityty.Controllers
                 return View();
 
         }
-
-
+        //@model iEnumerable<University.Models.Course>
         public ViewResult ShowStudentSchedule(Normal n)
         {
             //use a method to iterate through all the student's current courses taken
-
             return View(TempData["tempstudent"]);
         }
-
-        public PartialViewResult ShowStudentSchedule()
+        
+        [ChildActionOnly]
+        public ActionResult PartialSchedule()
         {
-            return PartialViewResult()
+            List<Course> m = new List<Course>();
+            m = ado.getStudentCourses(ado.currentStudents);
+            return PartialView("PartialSchedule", m);
         }
     }
 }
